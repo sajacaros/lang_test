@@ -3,11 +3,11 @@ import os
 import time
 
 import pandas as pd
+import pandas_ta as ta
 import pyupbit
 import schedule
-import ta
+
 from dotenv import load_dotenv
-import openai
 from openai import OpenAI
 
 
@@ -242,8 +242,15 @@ def execute_buy():
     print("Attempting to buy BTC...")
     try:
         krw = upbit.get_balance("KRW")
-        if krw > 5000:
-            result = upbit.buy_market_order("KRW-BTC", krw * 0.9995)
+        if krw > 10_000:
+            buy_amount = (
+                int(krw/10) if krw>1_000_000 else
+                int(krw/5) if krw>500_000 else
+                int(krw/2) if krw>200_000 else
+                int(krw*0.8)
+            )
+            print(f"amount : {buy_amount}")
+            result = upbit.buy_market_order("KRW-BTC", buy_amount)
             print("Buy order successful:", result)
     except Exception as e:
         print(f"Failed to execute buy order: {e}")

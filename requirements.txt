@@ -4,4 +4,10 @@ pyupbit
 pandas
 pandas_ta
 schedule
-ta
+langchain
+langchain-openai
+unstructured[pdf]
+fastembed
+chromadb
+langchainhub
+sentence-transformers
